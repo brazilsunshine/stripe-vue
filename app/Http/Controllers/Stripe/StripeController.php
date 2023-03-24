@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Stripe;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class StripeController extends Controller
 {
@@ -46,6 +47,39 @@ class StripeController extends Controller
            'checkout' => $checkout,
            'subscription' => $subscription,
        ];
+   }
 
+   public function webhook (Request $request)
+   {
+       \Log::info('webhook');
+
+       $endpoint_secret = env('WEBHOOK_KEY');
+
+       if ($endpoint_secret) {
+           // Only verify the event if there is an endpoint secret defined
+           // Otherwise use the basic decoded event
+           $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+           $payload = @file_get_contents('php://input');
+
+           try {
+               $event = \Stripe\Webhook::constructEvent(
+                   $payload, $sig_header, $endpoint_secret
+               );
+           } catch(\Stripe\Exception\SignatureVerificationException $e) {
+               // Invalid signature
+               echo '⚠️  Webhook error while validating signature.';
+               http_response_code(400);
+               exit();
+           }
+
+           if ($request->type == 'checkout.session.completed')
+           {
+               \Log::info('done');
+           }
+       }
+
+       return response()->json([
+           'success' => true
+       ]);
    }
 }

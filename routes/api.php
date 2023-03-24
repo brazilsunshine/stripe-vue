@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::group(['middleware' => ['auth:sanctum']], function () {
 //});
 Route::post('/process-payment', 'Stripe\PurchasesController@store');
+
+
+Route::post('/webhook', 'Stripe\StripeController@webhook');
