@@ -28,9 +28,23 @@ class StripeController extends Controller
            'mode' => 'payment',
        ]);
 
+       $subscription = $stripe->checkout->sessions->create([
+           'success_url' => 'http://stripe-vue.test/success',
+           'cancel_url' => 'http://stripe-vue.test/cancel',
+           'line_items' => [
+               [
+                   'price' => 'price_1MjN54KfQxRkIXlXj9YsMwJt',
+                   'quantity' => 1,
+               ],
+           ],
+           'mode' => 'subscription',
+       ]);
+
+
        return [
            'success' => true,
-           'checkout' => $checkout
+           'checkout' => $checkout,
+           'subscription' => $subscription,
        ];
 
    }

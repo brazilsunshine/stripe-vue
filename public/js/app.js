@@ -5447,7 +5447,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       publishableKey: 'pk_test_51MWf28KfQxRkIXlXqkN0uipSjX7SdJ0gA4bwe23NJAfTwnwfVTNMLt0H3qzCV9oI3q240IFoxusnwKAbzDlLT0q100a6qWZDQg',
-      sessionId: null
+      sessionId: null,
+      sessionSubscriptionId: null
     };
   },
   mounted: function mounted() {
@@ -5466,6 +5467,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 console.log('get-session', response);
                 if (response.data.success) {
                   _this.sessionId = response.data.checkout.id;
+                  _this.sessionSubscriptionId = response.data.subscription.id;
                 }
               })["catch"](function (error) {
                 console.log('get-session', error);
@@ -5480,6 +5482,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     submit: function submit() {
       // You will be redirected to Stripe's secure checkout page
       this.$refs.checkoutRef.redirectToCheckout();
+    },
+    submitSubscription: function submitSubscription() {
+      // You will be redirected to Stripe's secure checkout page
+      this.$refs.checkoutSubscriptionRef.redirectToCheckout();
     }
   }
 });
@@ -5536,7 +5542,20 @@ var render = function render() {
     on: {
       click: _vm.submit
     }
-  }, [_vm._v("\n            One time purchase\n        ")])], 1)]);
+  }, [_vm._v("\n            One time purchase\n        ")]), _vm._v(" "), _c("div", {
+    staticClass: "container d-flex justify-content mt-5"
+  }, [_c("stripe-checkout", {
+    ref: "checkoutSubscriptionRef",
+    attrs: {
+      pk: _vm.publishableKey,
+      sessionId: _vm.sessionSubscriptionId
+    }
+  }), _vm._v(" "), _c("button", {
+    staticClass: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+    on: {
+      click: _vm.submitSubscription
+    }
+  }, [_vm._v("\n                Subscription\n            ")])], 1)], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

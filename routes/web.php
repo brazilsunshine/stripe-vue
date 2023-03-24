@@ -36,6 +36,14 @@ Route::get('/', function () {
     return view('root');
 });
 
+Route::get('/cancel', function () {
+    return view('root');
+});
+Route::get('/success', function () {
+    return view('root');
+});
+
+
 Route::get('/getSession', 'Stripe\StripeController@getSession');
 
 
