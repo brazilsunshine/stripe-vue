@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Stripe\PaymentIntent;
+use Stripe\Stripe;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+//Route::post('/create-payment-intent', function (Request $request) {
+//    Stripe::setApiKey('your-stripe-secret-key');
+//
+//    $paymentIntent = PaymentIntent::create([
+//        'amount' => $request->amount,
+//        'currency' => 'usd',
+//        'description' => 'Test payment',
+//    ]);
+//
+//    return response()->json([
+//        'client_secret' => $paymentIntent->client_secret,
+//    ]);
+//});
+
 Route::get('/', function () {
     return view('root');
 });
+
+Route::get('/getSession', 'Stripe\StripeController@getSession');
+
+
+

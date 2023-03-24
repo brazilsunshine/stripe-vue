@@ -47,5 +47,8 @@ class PurchasesController extends Controller
 
         // Return the client secret of the payment intent object to the Vue 2 component
         return response()->json(['client_secret' => $intent->client_secret]);
+//        return view('root', [
+//            'intent' => json_encode($intent)
+//        ]);
     }
 }
