@@ -20,17 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Route::group(['middleware' => ['auth:sanctum']], function () {
 //});
-//Route::post('/process-payment', 'Stripe\PurchasesController@store');
 
 /**
  * Create PaymentIntent
  */
 Route::post('/payment-intents', 'Stripe\PaymentIntentController');
 
-Route::post('/create-payment-intent', 'Stripe\RetrievePaymentDetailsController');
 
-//Route::post('/create-payment-intent', 'Stripe\PaymentIntentController');
-
-
-
-//Route::post('/webhook', 'Stripe\StripeController@webhook');

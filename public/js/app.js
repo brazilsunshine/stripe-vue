@@ -5568,6 +5568,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      name: '',
+      email: '',
+      line1: '',
+      city: '',
+      country: '',
       stripe: null,
       cardElement: null,
       clientSecret: ''
@@ -5616,11 +5621,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return fetch('/api/payment-intents', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                  'Content-Type': 'application/json',
+                  'X-CSRF-TOKEN': window.axios.defaults.headers.common['X-CSRF-TOKEN']
                 },
                 body: JSON.stringify({
                   payment_method_id: paymentMethod.id,
-                  amount: 1000 // Change this to the amount you want to charge in cents
+                  amount: 1000,
+                  // Change this to the amount you want to charge in cents,
+                  name: _this2.name,
+                  email: _this2.email,
+                  line1: _this2.line1,
+                  city: _this2.city,
+                  country: _this2.country
                 })
               });
             case 6:
@@ -5640,10 +5652,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 14:
               _yield$_this2$stripe$2 = _context2.sent;
               paymentIntent = _yield$_this2$stripe$2.paymentIntent;
+              alert('Payment successfully');
               console.log({
                 paymentIntent: paymentIntent
               });
-            case 17:
+            case 18:
             case "end":
               return _context2.stop();
           }
@@ -5699,7 +5712,132 @@ var render = function render() {
         return _vm.handleSubmit.apply(null, arguments);
       }
     }
-  }, [_c("div", {
+  }, [_c("div", [_c("label", {
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("Full Name:")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.name,
+      expression: "name"
+    }],
+    attrs: {
+      type: "text",
+      id: "name",
+      required: ""
+    },
+    domProps: {
+      value: _vm.name
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.name = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v("Email:")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.email,
+      expression: "email"
+    }],
+    attrs: {
+      type: "email",
+      id: "email",
+      required: ""
+    },
+    domProps: {
+      value: _vm.email
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.email = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": "address"
+    }
+  }, [_vm._v("Address:")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.line1,
+      expression: "line1"
+    }],
+    attrs: {
+      type: "text",
+      id: "address",
+      required: ""
+    },
+    domProps: {
+      value: _vm.line1
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.line1 = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": "city"
+    }
+  }, [_vm._v("City:")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.city,
+      expression: "city"
+    }],
+    attrs: {
+      type: "text",
+      id: "city",
+      required: ""
+    },
+    domProps: {
+      value: _vm.city
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.city = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", [_c("label", {
+    attrs: {
+      "for": "country"
+    }
+  }, [_vm._v("Country:")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.country,
+      expression: "country"
+    }],
+    attrs: {
+      type: "text",
+      id: "country",
+      required: ""
+    },
+    domProps: {
+      value: _vm.country
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.country = $event.target.value;
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
     staticClass: "form-group"
   }, [_c("label", {
     attrs: {

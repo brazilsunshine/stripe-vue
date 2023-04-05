@@ -1,6 +1,26 @@
 <template>
     <div>
         <form @submit.prevent="handleSubmit">
+            <div>
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" v-model="name" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" v-model="email" required>
+            </div>
+            <div>
+                <label for="address">Address:</label>
+                <input type="text" id="address" v-model="line1" required>
+            </div>
+            <div>
+                <label for="city">City:</label>
+                <input type="text" id="city" v-model="city" required>
+            </div>
+            <div>
+                <label for="country">Country:</label>
+                <input type="text" id="country" v-model="country" required>
+            </div>
             <div class="form-group">
                 <label for="card-element">Credit or debit card</label>
                 <div id="card-element" ref="cardElement"></div>
@@ -17,6 +37,11 @@ import { loadStripe } from '@stripe/stripe-js';
 export default {
     data() {
         return {
+            name: '',
+            email: '',
+            line1: '',
+            city: '',
+            country: '',
             stripe: null,
             cardElement: null,
             clientSecret: '',
@@ -41,15 +66,22 @@ export default {
                 card: this.cardElement,
             });
 
+
             // Make a request to your Laravel backend to retrieve the client secret
             const response = await fetch('/api/payment-intents', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': window.axios.defaults.headers.common['X-CSRF-TOKEN']
                 },
                 body: JSON.stringify({
                     payment_method_id: paymentMethod.id,
-                    amount: 1000, // Change this to the amount you want to charge in cents
+                    amount: 1000, // Change this to the amount you want to charge in cents,
+                    name: this.name,
+                    email: this.email,
+                    line1: this.line1,
+                    city: this.city,
+                    country: this.country,
                 }),
             });
 
@@ -61,6 +93,7 @@ export default {
                 payment_method: paymentMethod.id,
             });
 
+            alert('Payment successfully')
             console.log({paymentIntent});
         },
     },

@@ -18,18 +18,18 @@ class PaymentIntentController extends Controller
 
         try
         {
-
             // Create a new Stripe customer object
             $customer = Customer::create([
-                'name' => 'sthef',
-                'email' => 'test@test.com',
-//                'address' => [
-//                    'line1' => $address,
-//                    'city' => $city,
-//                    'state' => $state,
-//                    'postal_code' => $zip,
-//                    'country' => 'US',
-//                ],
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' => [
+                    'line1' => $request->line1,
+                    'city' => $request->city,
+                    //'city' => $city,
+                    //'state' => $state,
+                    //'postal_code' => $zip,
+                    'country' => $request->country,
+                ],
             ]);
             // Create a new Stripe payment intent object
             $intent = PaymentIntent::create([
